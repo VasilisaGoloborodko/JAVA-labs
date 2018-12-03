@@ -2,18 +2,20 @@ package sorters;
 
 import java.util.Arrays;
 
-public class Type3 extends HalfMethod implements Sort{
+public class Type3 extends Sort{
 
     @Override
     public void sort(int[] arr) {
-       divArr(arr);
+       HalfMethod div = new HalfMethod();  
+        
+       div.divArr(arr);
 		
        BubbleUp c = new BubbleUp();
-       c.sort(secondHalf);
+       c.sort(div.secondHalf);
 		
-       Arrays.sort(secondHalf);
+       Arrays.sort(div.secondHalf);
 
-       commonSort(firstHalf, secondHalf, arr);
+       div.commonSort(div.firstHalf, div.secondHalf, arr);
     }
     
 }

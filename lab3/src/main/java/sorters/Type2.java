@@ -1,20 +1,22 @@
 package sorters;
 
-public class Type2 extends HalfMethod implements Sort{
+public class Type2 extends Sort{
 
     @Override
     public void sort(int[] arr) {
-       divArr(arr);
+       HalfMethod div = new HalfMethod(); 
+        
+       div.divArr(arr);
        
        BubbleUp b = new BubbleUp();
-       b.sort(secondHalf);
+       b.sort(div.secondHalf);
 		
        int low = 0;
-       int high = secondHalf.length - 1;
+       int high = div.secondHalf.length - 1;
        QuickSort c = new QuickSort();
-       c.sort(secondHalf, low, high);
+       c.sort(div.secondHalf);
 
-       commonSort(firstHalf, secondHalf, arr);
+       div.commonSort(div.firstHalf, div.secondHalf, arr);
     }
     
 }

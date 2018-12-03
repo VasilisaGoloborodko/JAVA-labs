@@ -1,22 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sorters;
 
 /**
  *
- * @author Васька-супер)
+ * @author Vasilisa_Goloborodko
  */
-public class QuickSort implements Sort{
+public class QuickSort extends Sort{
 
     @Override
     public void sort(int[] arr) {
-        
+        sortHelp(arr, 0, arr.length-1);
     }
     
-    public void sort(int[] arr, int low, int high){
+    private void sortHelp(int[] arr, int low, int high){
         
         if(arr.length == 0) {
             return;
@@ -49,11 +45,11 @@ public class QuickSort implements Sort{
 	}
 		
 	if(low < j) {
-            sort(arr, low, j);
+            sortHelp(arr, low, j);
 	}
 		
 	if(high > i) {
-            sort(arr, i, high);
+            sortHelp(arr, i, high);
 	}
     }
     

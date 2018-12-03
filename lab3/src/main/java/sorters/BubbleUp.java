@@ -1,7 +1,7 @@
 
 package sorters;
 
-public class BubbleUp implements Sort{
+public class BubbleUp extends Sort{
 
     @Override
     public void sort(int[] arr) {

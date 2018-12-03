@@ -3,7 +3,7 @@ package sorters;
 
 import java.util.Arrays;
 
-public class FunctSort implements Sort{
+public class FunctSort extends Sort{
 
     @Override
     public void sort(int[] arr) {

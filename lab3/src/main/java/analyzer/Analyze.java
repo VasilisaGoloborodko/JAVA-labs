@@ -1,54 +1,43 @@
 
 package analyzer;
 
-import fillers.Generate;
-import fillers.RandArr;
-import fillers.RandElem;
-import fillers.ReverseArr;
-import fillers.SortedArr;
-import java.util.ArrayList;
-import java.util.Iterator;
-import output.Output;
-import sorters.Collection;
+import fillers.GenerateArr.GenerateInfo;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Set;
+import org.reflections.Reflections;
+import sorters.Sort;
 
-public class Analyze {
-    public static void main(String[] args) {
-    
-        Collection coll = new Collection();
-        coll.main();
+public class Analyze{
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         
-        SortedArr c = new SortedArr();
-        ReverseArr d = new ReverseArr();
-        RandElem e = new RandElem();
+        try{
+            Class<?> cls = Class.forName("fillers.GenerateArr");
+            Object obj = cls.newInstance();
+            Method[] methodsGen = cls.getDeclaredMethods();
         
-        long before;
-        long after;
+            Class cls1 = Class.forName("sorters.Sort");
+            Reflections reflections = new Reflections();
+            Set<Class<? extends Sort>> subClasses = reflections.getSubTypesOf(cls1);
         
-        Output result = new Output();
-        
-        ArrayList<Generate> arrTypes = new ArrayList<>();
-        arrTypes.add(c);
-        arrTypes.add(d);
-        arrTypes.add(e);
-        
-        for (String key : coll.methods.keySet()){
-            
-            for (Iterator i = arrTypes.iterator(); i.hasNext();){
-                Generate o = (Generate) i.next();
-                
-                before = System.nanoTime();
-                o.generate(10, key);
-                after = System.nanoTime() - before;
-                
-                result.output(o.getClass().getSimpleName(), key, after);
+            for (Method methodGen : methodsGen) {
+                if (methodGen.isAnnotationPresent(GenerateInfo.class)){
+                    System.out.println("Тип генерации:"+methodGen+"\n");
+                    for (Class<? extends Sort> sortClass : subClasses){
+                        
+                        methodGen.setAccessible(true);
+                        long before = System.nanoTime();
+                        int[] arr = (int[]) methodGen.invoke(obj, 10, sortClass);
+                        System.out.println("Тип сортировки:"+sortClass+"\n" + Arrays.toString(arr));
+                        long after = System.nanoTime() - before;
+                    }
+                }
             }
-            
+        } catch (ClassNotFoundException e) {
+            System.out.println("Exception: " + e);
         }
-      
-        RandArr f = new RandArr();
-        before = System.nanoTime();
-        f.generate(10);
-        after = System.nanoTime() - before;
-        result.output("RandArr", after);
+        
     }
+
 }

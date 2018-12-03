@@ -1,32 +1,27 @@
 
 package fillers;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Random;
-import sorters.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@interface GenerateInfo{
-    String genName();
-} 
-
-
-public class GenerateArr {  
+public class GenerateArr { 
     
-    @GenerateInfo(genName = "Неотсортированный массив")
-    public static int[] RandArr(int length) {
-        int[] arr = genRandom(length);	
-	return arr;
-    }
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface GenerateInfo{} 
     
-    @GenerateInfo(genName = "Сортировка, дополненная одним случайным элементом")
-    public static int[] RandElem(int length, String name) {
+    @GenerateInfo
+    public static int[] RandElem(int length, Class<?> sortClass) {
         Random generator = new Random();
         
         int[] arr = genRandom(length);
 		
-	sort(arr, name);
+	sort(sortClass,arr);
 		
 	int[] newArr = Arrays.copyOf(arr, arr.length+1);
 	newArr[newArr.length-1] = generator.nextInt(100);
@@ -34,27 +29,32 @@ public class GenerateArr {
 	return newArr;
     }
     
-    @GenerateInfo(genName = "Сортировка в обратном порядке")
-    public static int[] ReverseArr(int length, String name) {
+    @GenerateInfo
+    public static int[] ReverseArr(int length, Class<?> sortClass) {
         int[] arr = genRandom(length);
-		
-	sort(arr, name);
+        
+        sort(sortClass,arr);
 		
 	for(int i = 0, j = arr.length - 1; j > i; j--, i++) {
             int tmp = arr[j];
             arr[j] = arr[i];
             arr[i] = tmp;
 	}
-		
 	return arr;
     }
     
-    @GenerateInfo(genName = "Обычная сортировка")
-    public static int[] SortedArr(int length, String name) {
+    @GenerateInfo
+    public static int[] SortedArr(int length, Class<?> sortClass) {
 	int[] arr = genRandom(length);	
         
-        sort(arr, name);
+        sort(sortClass,arr);
 	
+	return arr;
+    }
+    
+    @GenerateInfo
+    public static int[] RandArr(int length, Class<?> sortClass) {
+	int[] arr = genRandom(length);	
 	return arr;
     }
     
@@ -70,10 +70,21 @@ public class GenerateArr {
         return arr;
     }
     
-    private static void sort(int[] arr, String name){
-        Collection e = new Collection();
-	e.main();
-	e.methods.get(name).sort(arr);
+    private static void sort(Class<?> sortClass, int[] arr){
+        try {
+            Method sortMeth = sortClass.getMethod("sort", int[].class);
+            try {
+                try {
+                    sortMeth.invoke(sortClass.newInstance(), arr);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(GenerateArr.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                Logger.getLogger(GenerateArr.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (NoSuchMethodException | SecurityException ex) {
+            Logger.getLogger(GenerateArr.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

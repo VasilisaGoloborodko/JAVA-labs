@@ -1,7 +1,7 @@
 
 package sorters;
 
-public class BubbleDown implements Sort{
+public class BubbleDown extends Sort{
 
     @Override
     public void sort(int[] arr) {
@@ -19,9 +19,3 @@ public class BubbleDown implements Sort{
     }
     
 }
-
-//bubblesort сделать с помощью полиморфизма на два класса
-//pom.xml - указываются необходимые библиотеки
-//создать maven project
-//создать один большой проект для всех лаб
-//tortoise
