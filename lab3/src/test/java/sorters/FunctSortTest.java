@@ -10,9 +10,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class BubbleDownTest{
+public class FunctSortTest {
     
-    public BubbleDownTest() {
+    public FunctSortTest() {
     }
     
     @BeforeClass
@@ -32,19 +32,21 @@ public class BubbleDownTest{
     }
 
     /**
-     * Test of sort method, of class BubbleDown.
+     * Test of sort method, of class FunctSort.
      */
     @Test
     public void testSort() {
         int[] emptyArr = {};
         int[] arr = {};
-        BubbleDown instance = new BubbleDown();
+        FunctSort instance = new FunctSort();
         instance.sort(arr);
         assertArrayEquals(emptyArr,arr);
     }
     
     @Test
     public void timeoutTestSort() throws InterruptedException, TimeoutException{
+        System.out.println("* FunctSortTest - testWithTimeout()");
+        
         BubbleUp instance = new BubbleUp();
         
         int[] arr = genArr();
@@ -57,22 +59,11 @@ public class BubbleDownTest{
         };
         
         testThread.start();
-        Thread.sleep(1);
+        Thread.sleep(1000);
         testThread.interrupt();
         
         if (testThread.isInterrupted()){
-            throw new TimeoutException("The BubbleDown sort test takes too much time");
-        }
-    }
-    
-    @Test
-    public void testExpectedException(){
-        BubbleDown instance = new BubbleDown();
-        int[] arr = null;
-        try {
-            instance.sort(arr);
-            fail("NullPointerException was expected");
-        } catch (NullPointerException ex) {
+            throw new TimeoutException("The FunctSort test takes too much time");
         }
     }
     
@@ -85,4 +76,5 @@ public class BubbleDownTest{
 	}
         return arr;
     }
+    
 }

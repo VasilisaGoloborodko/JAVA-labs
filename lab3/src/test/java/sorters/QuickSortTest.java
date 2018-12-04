@@ -10,9 +10,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class BubbleDownTest{
+public class QuickSortTest {
     
-    public BubbleDownTest() {
+    public QuickSortTest() {
     }
     
     @BeforeClass
@@ -32,20 +32,20 @@ public class BubbleDownTest{
     }
 
     /**
-     * Test of sort method, of class BubbleDown.
+     * Test of sort method, of class QuickSort.
      */
     @Test
     public void testSort() {
         int[] emptyArr = {};
         int[] arr = {};
-        BubbleDown instance = new BubbleDown();
+        QuickSort instance = new QuickSort();
         instance.sort(arr);
         assertArrayEquals(emptyArr,arr);
     }
     
     @Test
     public void timeoutTestSort() throws InterruptedException, TimeoutException{
-        BubbleUp instance = new BubbleUp();
+        QuickSort instance = new QuickSort();
         
         int[] arr = genArr();
         
@@ -61,13 +61,13 @@ public class BubbleDownTest{
         testThread.interrupt();
         
         if (testThread.isInterrupted()){
-            throw new TimeoutException("The BubbleDown sort test takes too much time");
+            throw new TimeoutException("The QuickSort test takes too much time");
         }
     }
     
     @Test
     public void testExpectedException(){
-        BubbleDown instance = new BubbleDown();
+        QuickSort instance = new QuickSort();
         int[] arr = null;
         try {
             instance.sort(arr);
@@ -85,4 +85,5 @@ public class BubbleDownTest{
 	}
         return arr;
     }
+    
 }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sorters;
 
 import java.util.Random;
@@ -14,10 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Васька-супер)
- */
 public class BubbleUpTest {
     
     public BubbleUpTest() {
@@ -42,15 +34,14 @@ public class BubbleUpTest {
     /**
      * Test of sort method, of class BubbleUp.
      */
-//    @Test
-//    public void testSort() {
-//        System.out.println("sort");
-//        int[] arr = null;
-//        BubbleUp instance = new BubbleUp();
-//        instance.sort(arr);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testSort() {
+        int[] emptyArr = {};
+        int[] arr = {};
+        BubbleUp instance = new BubbleUp();
+        instance.sort(arr);
+        assertArrayEquals(emptyArr,arr);
+    }
     
     @Test
     public void timeoutTestSort() throws InterruptedException, TimeoutException{
@@ -58,12 +49,7 @@ public class BubbleUpTest {
         
         BubbleUp instance = new BubbleUp();
         
-        Random generator = new Random();
-	int[] arr = new int[generator.nextInt(100)];
-        
-        for(int i = 0; i < generator.nextInt(100); i++) {
-            arr[i] = generator.nextInt(100);
-	}
+        int[] arr = genArr();
         
         Thread testThread = new Thread(){
             @Override
@@ -81,14 +67,24 @@ public class BubbleUpTest {
         }
     }
     
-//    @Test
-//    public void testExpectedException(){
-//        BubbleUp instance = new BubbleUp();
-//        try {
-//            int[] arr = {null};
-//            instance.sort(arr);
-//            fail("IllegalArgumentException was expected");
-//        } catch (IllegalArgumentException ex) {
-//        }
-//    }
+    @Test
+    public void testExpectedException(){
+        BubbleUp instance = new BubbleUp();
+        int[] arr = null;
+        try {
+            instance.sort(arr);
+            fail("NullPointerException was expected");
+        } catch (NullPointerException ex) {
+        }
+    }
+    
+    private int[] genArr(){
+        Random generator = new Random();
+	int[] arr = new int[generator.nextInt(100)];
+        
+        for(int i = 0; i < generator.nextInt(100); i++) {
+            arr[i] = generator.nextInt(100);
+	}
+        return arr;
+    }
 }
