@@ -11,11 +11,11 @@ public class Type3 extends Sort{
        div.divArr(arr);
 		
        BubbleUp c = new BubbleUp();
-       c.sort(div.secondHalf);
+       c.sort(div.firstHalf);
 		
        Arrays.sort(div.secondHalf);
 
-       div.commonSort(div.firstHalf, div.secondHalf, arr);
+       div.merge(div.firstHalf, div.secondHalf, arr);
     }
     
 }

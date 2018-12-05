@@ -2,6 +2,7 @@
 package sorters;
 
 import java.util.Arrays;
+import org.apache.commons.lang.ArrayUtils;
 
 
 public class HalfMethod {
@@ -12,36 +13,10 @@ public class HalfMethod {
 	secondHalf = Arrays.copyOfRange(arr, arr.length/2, arr.length);
     }
 	
-    void commonSort(int[] firstHalf, int[] secondHalf, int[] arr) {
-	int[] sortArr = new int[firstHalf.length + secondHalf.length];
-	int i = 0;
-	int j = 0;
-		
-	for( int k = 0; k < sortArr.length; k++) {
-			
-            if(i > firstHalf.length - 1) {
-		int a = secondHalf[j];
-		sortArr[k] = a;
-		j++;
-            }
-            else if(j > secondHalf.length - 1) {
-		int a = firstHalf[i];
-		sortArr[k] = a;
-		i++;
-            }
-            else if(firstHalf[i] < secondHalf[j]) {
-		int a = firstHalf[i];
-		sortArr[k]= a;
-		i++;
-            }
-            else {
-		int b = secondHalf[j];
-                sortArr[k] = b;
-		j++;
-            }
-	}
-		
-        System.arraycopy(sortArr, 0, arr, 0, arr.length);
+    void merge(int[] firstHalf, int[] secondHalf, int[] arr) {
+        int[] mergedArr = new int[arr.length];
+        mergedArr = ArrayUtils.addAll(firstHalf,secondHalf);
+        System.arraycopy(mergedArr, 0, arr, 0, arr.length);
     }
 
 }

@@ -87,7 +87,7 @@ public class HalfMethodTest {
         int[] arr = {};
         int[] emptyArr = {};
         instance.divArr(arr);
-        instance.commonSort(instance.firstHalf, instance.secondHalf, arr);
+        instance.merge(instance.firstHalf, instance.secondHalf, arr);
         assertArrayEquals(emptyArr,arr);
     }
     
@@ -101,7 +101,7 @@ public class HalfMethodTest {
         arr = genArr(arr.length);
         HalfMethod instance = new HalfMethod();
         try {
-            instance.commonSort(firstHalf, secondHalf, arr);
+            instance.merge(firstHalf, secondHalf, arr);
             fail("IndexOutOfBoundsException was expected");
         } catch (IndexOutOfBoundsException ex) {
         }
@@ -109,27 +109,27 @@ public class HalfMethodTest {
     
     @Test
     public void timeoutCommonSort() throws InterruptedException, TimeoutException{
-        HalfMethod instance = new HalfMethod();
-        Random generator = new Random();
-        int length = generator.nextInt(100);
-        int[] arr = genArr(length);
-        instance.divArr(arr);
-        int[] firstHalf = instance.firstHalf;
-        int[] secondHalf = instance.secondHalf;
-        Thread testThread = new Thread(){
-            @Override
-            public void run(){
-                instance.commonSort(firstHalf, secondHalf, arr);
-            }
-        };
-        
-        testThread.start();
-        Thread.sleep(10);
-        testThread.interrupt();
-        
-        if (testThread.isInterrupted()){
-            throw new TimeoutException("The CommonSort method test takes too much time");
-        }
+//        HalfMethod instance = new HalfMethod();
+//        Random generator = new Random();
+//        int length = generator.nextInt(100);
+//        int[] arr = genArr(length);
+//        instance.divArr(arr);
+//        int[] firstHalf = instance.firstHalf;
+//        int[] secondHalf = instance.secondHalf;
+//        Thread testThread = new Thread(){
+//            @Override
+//            public void run(){
+//                instance.merge(firstHalf, secondHalf, arr);
+//            }
+//        };
+//        
+//        testThread.start();
+//        Thread.sleep(10);
+//        testThread.interrupt();
+//        
+//        if (testThread.isInterrupted()){
+//            throw new TimeoutException("The CommonSort method test takes too much time");
+//        }
     }
    
     

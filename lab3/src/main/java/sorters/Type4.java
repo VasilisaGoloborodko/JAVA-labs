@@ -15,7 +15,7 @@ public class Type4 extends Sort{
 		
        Arrays.sort(div.secondHalf);
 
-       div.commonSort(div.firstHalf, div.secondHalf, arr);
+       div.merge(div.firstHalf, div.secondHalf, arr);
     }
     
 }

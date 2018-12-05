@@ -9,14 +9,14 @@ public class Type2 extends Sort{
        div.divArr(arr);
        
        BubbleUp b = new BubbleUp();
-       b.sort(div.secondHalf);
+       b.sort(div.firstHalf);
 		
        int low = 0;
        int high = div.secondHalf.length - 1;
        QuickSort c = new QuickSort();
        c.sort(div.secondHalf);
 
-       div.commonSort(div.firstHalf, div.secondHalf, arr);
+       div.merge(div.firstHalf, div.secondHalf, arr);
     }
     
 }

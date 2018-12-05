@@ -1,7 +1,9 @@
-
+/**
+* Bubble down sort
+*/
 package sorters;
 
-public class BubbleDown extends Sort{
+public class BubbleDown extends Bubble{
 
     @Override
     public void sort(int[] arr) {

@@ -15,7 +15,7 @@ public class Type1 extends Sort{
        BubbleUp c = new BubbleUp();
        c.sort(div.secondHalf);
        
-       div.commonSort(div.firstHalf, div.secondHalf, arr);
+       div.merge(div.firstHalf, div.secondHalf,arr);
     }
     
 }
